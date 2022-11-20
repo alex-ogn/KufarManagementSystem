@@ -8,6 +8,6 @@ namespace KufarManagementSystem.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
-        }//test3
+        }//test4
     }
 }
