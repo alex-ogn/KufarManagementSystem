@@ -13,6 +13,10 @@ namespace KufarManagementSystem.Models
         [Column]
         public string FirstName { get; set; }
 
+        [Display(Name = "Middle name")]
+        [Column]
+        public string MiddleName { get; set; }
+
         [Display(Name = "Last  name")]
         [Required]
         [Column]
@@ -25,8 +29,14 @@ namespace KufarManagementSystem.Models
 
         // TODO Split
         [Display(Name = "Address")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MMM/yyyy}")]
         [Column]
         public string Address { get; set; }
+
+        [Display(Name = "Day of birth")]
+        [Required]
+        [Column]
+        public DateTime DayOfBirth { get; set; }
 
     }
 

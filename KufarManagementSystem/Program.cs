@@ -1,5 +1,6 @@
 using KufarManagementSystem.Data;
 using KufarManagementSystem.Models;
+using KufarManagementSystem.Utilities.UserRoles;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,7 +13,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
 builder.Services.AddControllersWithViews();
 
 builder.Services.Configure<IdentityOptions>(options =>
@@ -37,6 +40,7 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.SignIn.RequireConfirmedEmail = false;
     options.SignIn.RequireConfirmedAccount = false;
     options.SignIn.RequireConfirmedPhoneNumber = false;
+
 });
 
 // TODO add Cookie settings
@@ -62,6 +66,14 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+// TODO change & test
+
+using (var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>> ();
+    UserRightsCreator.SeedData(roleManager);
+}
 
 app.MapControllerRoute(
     name: "default",
